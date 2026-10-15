@@ -12,6 +12,7 @@ import {
 import { Plus, UserX, Shield, ShieldCheck, ShieldAlert } from "lucide-react";
 import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/components/ui/modal";
 import { format } from "date-fns";
+import { TableSkeleton } from "@/components/ui/shimmer";
 
 type FactoryUser = Awaited<ReturnType<typeof getFactoryUsers>>[number];
 
@@ -93,7 +94,7 @@ export default function UsersPage() {
         </button>
       </div>
 
-      <div className="bg-surface-2 border border-border rounded-lg overflow-hidden">
+      {users.length === 0 && pending ? <TableSkeleton rows={3} cols={5} /> : <div className="bg-surface-2 border border-border rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
@@ -163,7 +164,7 @@ export default function UsersPage() {
             )}
           </tbody>
         </table>
-      </div>
+      </div>}
 
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Novo usuário">
         <form onSubmit={handleAdd} className="space-y-4">

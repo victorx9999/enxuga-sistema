@@ -10,6 +10,7 @@ import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/compon
 import { DataTable } from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import { format } from "date-fns";
+import { PageLoading } from "@/components/ui/shimmer";
 
 type Entry = Awaited<ReturnType<typeof getProductionEntries>>[number];
 type Product = Awaited<ReturnType<typeof getProducts>>[number];
@@ -66,6 +67,7 @@ export default function ProductionPage() {
   if (!current) return null;
 
   const totalKg = entries.reduce((s, e) => s + Number(e.weightKg), 0);
+  const loading = entries.length === 0 && pending;
 
   return (
     <div>
@@ -81,6 +83,8 @@ export default function ProductionPage() {
           </button>
         </div>
       </div>
+
+      {loading ? <PageLoading type="table" /> : <>
 
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
@@ -140,6 +144,7 @@ export default function ProductionPage() {
           ]}
         />
       </div>
+      </>}
 
       {/* Add modal */}
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Lançar produção">

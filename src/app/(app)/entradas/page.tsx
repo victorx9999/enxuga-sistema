@@ -14,6 +14,7 @@ import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/compon
 import { DataTable } from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import { format } from "date-fns";
+import { PageLoading } from "@/components/ui/shimmer";
 
 type Material = Awaited<ReturnType<typeof getMaterials>>[number];
 type Entry = Awaited<ReturnType<typeof getMaterialEntries>>[number];
@@ -107,6 +108,8 @@ export default function EntradasPage() {
           </button>
         </div>
       </div>
+
+      {entries.length === 0 && pending ? <PageLoading type="table" /> : <>
 
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
@@ -216,6 +219,7 @@ export default function EntradasPage() {
           ]}
         />
       </div>
+      </>}
 
       {/* Add entry modal */}
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Nova entrada de material">

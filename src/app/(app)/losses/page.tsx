@@ -11,6 +11,7 @@ import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/compon
 import { DataTable } from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import { format } from "date-fns";
+import { PageLoading } from "@/components/ui/shimmer";
 
 type Loss = Awaited<ReturnType<typeof getLosses>>[number];
 
@@ -84,6 +85,8 @@ export default function LossesPage() {
         </div>
       </div>
 
+      {losses.length === 0 && pending ? <PageLoading type="table" /> : <>
+
       {/* Summary */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="p-4 bg-danger/5 border border-danger/30 rounded-lg">
@@ -112,6 +115,7 @@ export default function LossesPage() {
           ]}
         />
       </div>
+      </>}
 
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Registrar perda">
         <form onSubmit={handleAdd} className="space-y-4">

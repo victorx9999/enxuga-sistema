@@ -9,6 +9,7 @@ import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/compon
 import { DataTable } from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import { format } from "date-fns";
+import { PageLoading } from "@/components/ui/shimmer";
 
 type Expense = Awaited<ReturnType<typeof getExpenses>>[number];
 
@@ -70,6 +71,8 @@ export default function ExpensesPage() {
         </div>
       </div>
 
+      {expenses.length === 0 && pending ? <PageLoading type="table" /> : <>
+
       {/* Summary */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="p-4 bg-surface-2 border border-border rounded-lg">
@@ -110,6 +113,7 @@ export default function ExpensesPage() {
           ]}
         />
       </div>
+      </>}
 
       {/* Add modal */}
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Nova despesa">

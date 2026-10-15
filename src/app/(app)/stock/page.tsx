@@ -8,6 +8,7 @@ import { getCurrentMonth } from "@/lib/months";
 import { MonthSelector } from "@/components/ui/month-selector";
 import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/components/ui/modal";
 import { Boxes } from "lucide-react";
+import { PageLoading } from "@/components/ui/shimmer";
 
 type Material = Awaited<ReturnType<typeof getMaterials>>[number];
 type Balance = Awaited<ReturnType<typeof getStockBalance>>[number];
@@ -79,6 +80,8 @@ export default function StockPage() {
           </button>
         </div>
       </div>
+
+      {balances.length === 0 && pending ? <PageLoading type="stock" /> : <>
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
@@ -201,6 +204,7 @@ export default function StockPage() {
           )}
         </div>
       )}
+      </>}
 
       {/* Add material modal */}
       <Modal open={showAddMaterial} onClose={() => setShowAddMaterial(false)} title="Novo material">

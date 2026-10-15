@@ -12,6 +12,7 @@ import {
   Scale,
   ArrowUpRight,
 } from "lucide-react";
+import { PageLoading } from "@/components/ui/shimmer";
 import Link from "next/link";
 import {
   BarChart,
@@ -109,6 +110,10 @@ export default function DashboardPage() {
         </div>
         <MonthSelector value={month} onChange={setMonth} />
       </div>
+
+      {!data && pending ? (
+        <PageLoading type="dashboard" />
+      ) : <>
 
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -229,6 +234,7 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
+      </>}
     </div>
   );
 }

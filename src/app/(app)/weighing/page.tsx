@@ -10,6 +10,7 @@ import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/compon
 import { DataTable } from "@/components/ui/data-table";
 import { Plus, Scale } from "lucide-react";
 import { format } from "date-fns";
+import { TableSkeleton } from "@/components/ui/shimmer";
 
 type Weighing = Awaited<ReturnType<typeof getWeighings>>[number];
 
@@ -77,6 +78,7 @@ export default function WeighingPage() {
         </div>
       </div>
 
+      {weighings.length === 0 && pending ? <TableSkeleton rows={3} cols={4} /> :
       <div className="bg-surface-2 border border-border rounded-lg overflow-hidden">
         <DataTable
           data={weighings}
@@ -103,7 +105,7 @@ export default function WeighingPage() {
             },
           ]}
         />
-      </div>
+      </div>}
 
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Registrar pesagem">
         <form onSubmit={handleAdd} className="space-y-4">
