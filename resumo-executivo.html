@@ -1,0 +1,348 @@
+<title>Enxuga+ Resumo Executivo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap">
+<style>
+  /* Layout: single-column document, max 820px, generous whitespace */
+  :root {
+    --bg: #fafaf8;
+    --surface: #ffffff;
+    --border: #e8e5df;
+    --fg: #1a1a18;
+    --fg-2: #5c5a54;
+    --accent: #ff5a1f;
+    --accent-soft: #fff0ea;
+    --green: #16a34a;
+    --green-soft: #dcfce7;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413;
+      --surface: #1e1e1c;
+      --border: #2e2e2a;
+      --fg: #e8e5df;
+      --fg-2: #9c9a94;
+      --accent: #ff7a45;
+      --accent-soft: #2a1a10;
+      --green: #4ade80;
+      --green-soft: #14291a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413;
+    --surface: #1e1e1c;
+    --border: #2e2e2a;
+    --fg: #e8e5df;
+    --fg-2: #9c9a94;
+    --accent: #ff7a45;
+    --accent-soft: #2a1a10;
+    --green: #4ade80;
+    --green-soft: #14291a;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    max-width: 820px;
+    margin: 0 auto;
+    padding-inline: 24px;
+    padding-block: 40px;
+  }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: 2.4rem; margin: 0 0 8px; }
+  h2 { font-size: 1.5rem; margin: 48px 0 16px; color: var(--accent); }
+  h3 { font-size: 1.15rem; margin: 28px 0 8px; }
+  p { margin: 0 0 16px; }
+
+  .subtitle { font-size: 1rem; color: var(--fg-2); margin-bottom: 32px; }
+  .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; margin-bottom: 12px; }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 24px 0 32px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .kpi-label { font-size: 0.75rem; color: var(--fg-2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .kpi-value { font-family: var(--font-display); font-size: 1.6rem; }
+  .kpi-note { font-size: 0.75rem; color: var(--fg-2); margin-top: 2px; }
+
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 140px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px;
+    position: relative;
+    text-align: center;
+  }
+  .flow-step:first-child { border-radius: 8px 0 0 8px; }
+  .flow-step:last-child { border-radius: 0 8px 8px 0; }
+  .flow-step + .flow-step { border-left: none; }
+  .flow-num { font-size: 0.65rem; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .flow-title { font-family: var(--font-display); font-size: 1rem; margin-bottom: 4px; }
+  .flow-desc { font-size: 0.75rem; color: var(--fg-2); }
+  .flow-arrow { display: flex; align-items: center; font-size: 1.2rem; color: var(--accent); padding: 0 2px; }
+
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .module {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    border-top: 3px solid var(--accent);
+  }
+  .module-name { font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 6px; }
+  .module-path { font-size: 0.7rem; color: var(--fg-2); font-family: monospace; margin-bottom: 8px; }
+  .module p { font-size: 0.85rem; margin: 0; color: var(--fg-2); }
+
+  .tag { display: inline-block; font-size: 0.7rem; font-weight: 500; padding: 2px 8px; border-radius: 3px; margin-right: 4px; }
+  .tag-entry { background: var(--accent-soft); color: var(--accent); }
+  .tag-view { background: var(--green-soft); color: var(--green); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 16px 0; }
+  th { text-align: left; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-2); padding: 8px 12px; border-bottom: 2px solid var(--border); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  td:first-child { font-weight: 500; }
+
+  .stack-list { list-style: none; padding: 0; margin: 16px 0; }
+  .stack-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .stack-list li:last-child { border: none; }
+  .stack-label { color: var(--fg-2); }
+
+  .footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--fg-2); text-align: center; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 1.8rem; }
+    .flow { flex-direction: column; }
+    .flow-step { border-radius: 0; border-left: 1px solid var(--border); }
+    .flow-step:first-child { border-radius: 8px 8px 0 0; }
+    .flow-step:last-child { border-radius: 0 0 8px 8px; }
+    .flow-step + .flow-step { border-top: none; }
+    .flow-arrow { justify-content: center; transform: rotate(90deg); padding: 0; }
+  }
+</style>
+
+<span class="badge">Resumo Executivo</span>
+<h1>Enxuga+ Gestão Industrial</h1>
+<p class="subtitle">Sistema de gestão de produção para a Fábrica 03 — tecelagem de toalhas, panos e mantas da marca Enxuga+ (Ezequiel Dantas).</p>
+
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="kpi-label">Unidade base</div>
+    <div class="kpi-value">kg</div>
+    <div class="kpi-note">Toda operação é registrada em quilogramas</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Módulos</div>
+    <div class="kpi-value">8</div>
+    <div class="kpi-note">Produção, estoque, entradas, despesas, perdas, pesagem, relatórios, usuários</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Produtos</div>
+    <div class="kpi-value">3</div>
+    <div class="kpi-note">Toalha de Banho, Toalha de Rosto, Pano de Chão</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Relatórios</div>
+    <div class="kpi-value">PDF</div>
+    <div class="kpi-note">Mensal detalhado e anual consolidado</div>
+  </div>
+</div>
+
+<h2>O que o sistema resolve</h2>
+<p>A Fábrica 03 controlava toda a operação em planilhas Google Sheets — compras de fio, produção diária, despesas, perdas e acerto entre sócios. As informações eram desconectadas: não havia relação automática entre a composição de um produto, a produção registrada e o consumo de matéria-prima.</p>
+<p>O sistema substitui essa planilha por uma aplicação web integrada, onde o lançamento de produção consome automaticamente os materiais com base na composição configurada de cada produto, e o estoque é calculado em tempo real.</p>
+
+<h2>Fluxo integrado</h2>
+
+<div class="flow">
+  <div class="flow-step">
+    <div class="flow-num">1. Compra</div>
+    <div class="flow-title">Entradas</div>
+    <div class="flow-desc">Registro de NF, peso, valor, imposto, forma de pagamento</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-num">2. Configuração</div>
+    <div class="flow-title">Composição</div>
+    <div class="flow-desc">Toalha: 60% Fio 18/1 + 40% Poliéster 150</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-num">3. Fábrica</div>
+    <div class="flow-title">Produção</div>
+    <div class="flow-desc">Lançamento em kg por tear e tecelagem</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-num">Automático</div>
+    <div class="flow-title">Consumo</div>
+    <div class="flow-desc">Desconta fio do estoque pela composição</div>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-num">Resultado</div>
+    <div class="flow-title">Estoque</div>
+    <div class="flow-desc">Saldo, preço médio e valor atualizado</div>
+  </div>
+</div>
+
+<h2>Módulos</h2>
+
+<div class="module-grid">
+  <div class="module">
+    <div class="module-name">Dashboard</div>
+    <div class="module-path">/dashboard</div>
+    <p>Visão geral do mês: produção total, entradas de fio, índice de perdas, resumo financeiro e gráfico de produção por dia.</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-entry">Lançamento</span>
+    <div class="module-name">Produção</div>
+    <div class="module-path">/production</div>
+    <p>Registro de produção diária por produto, tear e tecelagem. Ao salvar, consome materiais automaticamente.</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-entry">Lançamento</span>
+    <div class="module-name">Entradas de Material</div>
+    <div class="module-path">/entradas</div>
+    <p>Compras de fio com nota fiscal, tipo, caixas, kg, valor, imposto, forma de pagamento e observações.</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-entry">Lançamento</span>
+    <div class="module-name">Despesas</div>
+    <div class="module-path">/expenses</div>
+    <p>Despesas operacionais: energia, água, aluguel, manutenção, salários. Identifica quem pagou (acerto entre sócios).</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-entry">Lançamento</span>
+    <div class="module-name">Perdas</div>
+    <div class="module-path">/losses</div>
+    <p>Registro de material ou produto perdido com motivo: defeito na trama, fio com umidade, mancha, dano no transporte.</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-entry">Lançamento</span>
+    <div class="module-name">Pesagem</div>
+    <div class="module-path">/weighing</div>
+    <p>Conferência de peso com registro fotográfico opcional. Validação do estoque físico.</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-view">Consulta</span>
+    <div class="module-name">Estoque</div>
+    <div class="module-path">/stock</div>
+    <p>Saldo em tempo real: abertura + entradas − consumo = fechamento. Preço médio ponderado e valor do estoque.</p>
+  </div>
+  <div class="module">
+    <span class="tag tag-view">Consulta</span>
+    <div class="module-name">Relatórios</div>
+    <div class="module-path">/reports</div>
+    <p>Consulta mensal por aba (produção, entradas, despesas, perdas). Exporta CSV. Gera PDF mensal e anual.</p>
+  </div>
+</div>
+
+<h2>Cálculos automáticos</h2>
+
+<table>
+  <thead>
+    <tr><th>Cálculo</th><th>Fórmula</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Consumo de material</td>
+      <td>Peso produzido × percentual da composição do produto.<br>Ex: 100 kg Toalha → 60 kg Fio 18/1 + 40 kg Poliéster</td>
+    </tr>
+    <tr>
+      <td>Saldo de estoque</td>
+      <td>Σ entradas históricas − Σ consumos históricos (calculado em tempo real, sem fechamento manual)</td>
+    </tr>
+    <tr>
+      <td>Preço médio</td>
+      <td>Σ valor total de todas as entradas ÷ Σ kg de todas as entradas (média ponderada histórica)</td>
+    </tr>
+    <tr>
+      <td>Custo matéria-prima/kg</td>
+      <td>Σ (percentual composição × preço médio do material) para cada material do produto</td>
+    </tr>
+    <tr>
+      <td>Valor do estoque</td>
+      <td>Saldo de fechamento × preço médio, por material</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Composição dos produtos</h2>
+
+<table>
+  <thead>
+    <tr><th>Produto</th><th>Código</th><th>Fio 18/1 (Algodão)</th><th>Poliéster 150</th><th>Fio Misto</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Toalha de Banho</td><td>TB</td><td>60%</td><td>40%</td><td>—</td></tr>
+    <tr><td>Toalha de Rosto</td><td>TR</td><td>60%</td><td>40%</td><td>—</td></tr>
+    <tr><td>Pano de Chão</td><td>PC</td><td>—</td><td>—</td><td>100%</td></tr>
+  </tbody>
+</table>
+
+<h2>Permissões</h2>
+
+<table>
+  <thead>
+    <tr><th>Papel</th><th>Pode fazer</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Administrador</td><td>Tudo: cadastros, lançamentos, relatórios, gerenciar usuários</td></tr>
+    <tr><td>Gerente</td><td>Lançamentos, relatórios, visualizar usuários, excluir registros</td></tr>
+    <tr><td>Operador</td><td>Apenas lançar produção, entradas, despesas e perdas</td></tr>
+  </tbody>
+</table>
+
+<h2>Stack técnico</h2>
+
+<ul class="stack-list">
+  <li><span>Frontend</span> <span class="stack-label">Next.js 16 (App Router)</span></li>
+  <li><span>Linguagem</span> <span class="stack-label">TypeScript</span></li>
+  <li><span>Banco de dados</span> <span class="stack-label">PostgreSQL 18</span></li>
+  <li><span>ORM</span> <span class="stack-label">Drizzle ORM</span></li>
+  <li><span>Autenticação</span> <span class="stack-label">Auth.js (NextAuth v5)</span></li>
+  <li><span>Relatórios</span> <span class="stack-label">jsPDF + jspdf-autotable</span></li>
+  <li><span>Estilo</span> <span class="stack-label">Tailwind CSS 4 + CSS tokens</span></li>
+</ul>
+
+<h2>Acesso</h2>
+
+<table>
+  <thead>
+    <tr><th>Usuário</th><th>E-mail</th><th>Senha</th><th>Papel</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Victor</td><td>victor.brejo@gmail.com</td><td>admin123</td><td>Administrador</td></tr>
+    <tr><td>Igor</td><td>igor@enxuga.com</td><td>oper123</td><td>Gerente</td></tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  Enxuga+ Gestão Industrial · Fábrica 03 · Tecelagem · Outubro 2026
+</div>
