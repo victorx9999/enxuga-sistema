@@ -8,6 +8,7 @@ import { getStockBalance } from "@/lib/actions/stock";
 import { getCurrentMonth } from "@/lib/months";
 import { Plus, FlaskConical, Trash2 } from "lucide-react";
 import { Modal, FormField, inputClass, btnPrimary, btnSecondary } from "@/components/ui/modal";
+import { PageLoading } from "@/components/ui/shimmer";
 
 type Product = Awaited<ReturnType<typeof getProducts>>[number];
 type Material = Awaited<ReturnType<typeof getMaterials>>[number];
@@ -86,6 +87,8 @@ export default function ProductsPage() {
           <span className="flex items-center gap-2"><Plus size={16} /> Novo produto</span>
         </button>
       </div>
+
+      {products.length === 0 && pending ? <PageLoading type="table" /> : <>
 
       {/* Materials reference card */}
       <div className="bg-surface-2 border border-border rounded-lg p-4 mb-6">
@@ -212,6 +215,7 @@ export default function ProductsPage() {
           <div className="text-center text-muted py-12">Nenhum produto cadastrado.</div>
         )}
       </div>
+      </>}
 
       {/* Add modal */}
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Novo produto">
