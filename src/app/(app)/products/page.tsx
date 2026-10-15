@@ -88,8 +88,8 @@ export default function ProductsPage() {
         </button>
       </div>
 
-      {products.length === 0 && pending ? <PageLoading type="table" /> : <>
-
+      {products.length === 0 && pending ? <PageLoading type="table" /> : (
+      <>
       {/* Materials reference card */}
       <div className="bg-surface-2 border border-border rounded-lg p-4 mb-6">
         <h2 className="text-sm font-bold mb-3">Materiais cadastrados · Preço médio</h2>
@@ -215,7 +215,8 @@ export default function ProductsPage() {
           <div className="text-center text-muted py-12">Nenhum produto cadastrado.</div>
         )}
       </div>
-      </>}
+      </>
+      )}
 
       {/* Add modal */}
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Novo produto">

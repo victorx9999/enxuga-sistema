@@ -17,23 +17,26 @@ type FactoryContextType = {
   factories: Factory[];
   current: Factory | null;
   setCurrent: (factory: Factory) => void;
+  addFactory: (factory: Factory) => void;
 };
 
 const FactoryContext = createContext<FactoryContextType>({
   factories: [],
   current: null,
   setCurrent: () => {},
+  addFactory: () => {},
 });
 
 const STORAGE_KEY = "enxuga_factory_id";
 
 export function FactoryProvider({
-  factories,
+  factories: initialFactories,
   children,
 }: {
   factories: Factory[];
   children: React.ReactNode;
 }) {
+  const [factories, setFactories] = useState(initialFactories);
   const [current, setCurrentState] = useState<Factory | null>(() => {
     if (factories.length === 0) return null;
     if (typeof window !== "undefined") {
@@ -56,6 +59,11 @@ export function FactoryProvider({
     []
   );
 
+  const addFactory = useCallback((factory: Factory) => {
+    setFactories((prev) => [...prev, factory]);
+    setCurrent(factory);
+  }, [setCurrent]);
+
   useEffect(() => {
     if (current && factories.length > 0 && !factories.find((f) => f.id === current.id)) {
       setCurrent(factories[0]);
@@ -63,7 +71,7 @@ export function FactoryProvider({
   }, [factories, current, setCurrent]);
 
   return (
-    <FactoryContext.Provider value={{ factories, current, setCurrent }}>
+    <FactoryContext.Provider value={{ factories, current, setCurrent, addFactory }}>
       {children}
     </FactoryContext.Provider>
   );
